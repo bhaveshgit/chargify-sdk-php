@@ -391,6 +391,27 @@ class Subscription extends AbstractEntity
 
         return $this;
     }
+    
+     /**
+     * Get metadata data for given subscription ID
+     *
+     * @param int $subscriptionId
+     *
+     * @return Subscription
+     */
+    public function metadata($subscriptionId)
+    {
+        $service       = $this->getService();
+        $response      = $service->request('subscriptions/' . (int)$subscriptionId.'/metadata', 'GET');
+        $responseArray = $this->getResponseArray($response);
+        if (!$this->isError()) {
+            $this->_data = $responseArray['metadata'];
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
 
     /**
      * Create a new subscription.
