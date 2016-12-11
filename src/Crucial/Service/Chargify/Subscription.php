@@ -412,6 +412,27 @@ class Subscription extends AbstractEntity
 
         return $this;
     }
+    
+     /**
+     * Get component data for given subscription ID
+     *
+     * @param int $subscriptionId
+     *
+     * @return Subscription
+     */
+    public function components($subscriptionId)
+    {
+        $service = $this->getService();
+        $response = $service->request('subscriptions/' . (int)$subscriptionId . '/components', 'GET');
+        $responseArray = $this->getResponseArray($response);
+        if (!$this->isError()) {
+            $this->_data = $responseArray;
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
 
     /**
      * Create a new subscription.
