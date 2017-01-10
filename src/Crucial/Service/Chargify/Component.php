@@ -43,7 +43,7 @@ class Component extends AbstractEntity
      */
     public function setUsageQuantity($quantity)
     {
-        $this->setParam('quantity', $quantity);
+        $this->setParam('unit_balance', $quantity);
 
         return $this;
     }
