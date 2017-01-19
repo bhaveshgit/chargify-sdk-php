@@ -343,6 +343,27 @@ class Customer extends AbstractEntity
     }
 
     /**
+     * @param $id
+     * @return $this
+     */
+    public function getManagementLink($id)
+    {
+        $service = $this->getService();
+
+        $response      = $service->request('portal/customers/' . $id.'/management_link', 'GET');
+        $responseArray = $this->getResponseArray($response);
+
+        // a 404 will be returned if not found, so make sure we have a 200
+        if (!$this->isError() && '200' == $response->getStatusCode()) {
+            $this->_data = $responseArray;
+        } else {
+            $this->_data = array();
+        }
+
+        return $this;
+    }
+
+    /**
      * This normalizes the array for us so we can rely on a consistent structure.
      *
      * @param array $responseArray
